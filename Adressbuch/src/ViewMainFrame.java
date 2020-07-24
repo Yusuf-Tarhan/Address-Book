@@ -33,6 +33,7 @@ public class ViewMainFrame extends JFrame implements  MouseListener
 	static JButton ButtonExport;
 	static JButton ButtonExport2;
 	static JButton ButtonImport;
+	static JButton ButtonDeleteAll;
 	JButton  ButtonNeu;
 	 
 	 Date d;
@@ -118,6 +119,8 @@ public class ViewMainFrame extends JFrame implements  MouseListener
 			ButtonExport.setEnabled(true);
 			printbutton.setEnabled(true);
 			ButtonSearch.setEnabled(true);
+			ButtonDeleteAll.setEnabled(true);
+
 		}
 		
 	  }
@@ -146,33 +149,42 @@ public class ViewMainFrame extends JFrame implements  MouseListener
 		
 		
 		ButtonExport=new JButton(new ImageIcon(getClass().getResource("images/save2.png")));
+		ButtonExport.setToolTipText("Speichern unter ");
 		ButtonExport.setBounds(21, 1, 50, 30);
 		ButtonExport.setEnabled(false);
 		MainPanel.add(ButtonExport);
 		
 		ButtonExport2=new JButton(new ImageIcon(getClass().getResource("images/save3.png")));
+		ButtonExport2.setToolTipText("Speichern Sie die Liste. ");
 		ButtonExport2.setEnabled(false);
 		ButtonExport2.setBounds(72, 1, 50, 30);
 		MainPanel.add(ButtonExport2);
 		
 		ButtonImport=new JButton(new ImageIcon(getClass().getResource("images/Open.png")));
+		ButtonImport.setToolTipText("Laden Sie eine Liste hoch. ");
 		ButtonImport.setBounds(123, 1, 50, 30);
 		MainPanel.add(ButtonImport);
+		
+		ButtonDeleteAll=new JButton(new ImageIcon(getClass().getResource("images/remove.png")));
+		ButtonDeleteAll.setToolTipText("Löschen Sie die ganze Adressenliste ");
+		ButtonDeleteAll.setBounds(174, 1, 50, 30);
+		ButtonDeleteAll.setEnabled(false);
+		MainPanel.add(ButtonDeleteAll);
 
 		
 		ButtonNeu=new JButton(new ImageIcon(getClass().getResource("images/new2.png")));
-		ButtonNeu.setToolTipText("Fügen Sie bitte neue Daten ein");
+		ButtonNeu.setToolTipText("Fügen Sie bitte neue Adresse hinzu");
 		ButtonNeu.setBounds(20, 52, 145, 37);
 		MainPanel.add(ButtonNeu);
 		
 		ButtonDelete = new JButton(new ImageIcon(getClass().getResource("images/delete3.png")));
-		ButtonDelete.setToolTipText("Löschen Sie die selektierten Daten ");
+		ButtonDelete.setToolTipText("Löschen Sie die selektierte Zeile ");
 		ButtonDelete.setEnabled(false);		
 		ButtonDelete.setBounds(175, 52, 145, 37);
 		MainPanel.add(ButtonDelete);
 
 		ButtonUpdate = new JButton(new ImageIcon(getClass().getResource("images/edit.png")));
-		ButtonUpdate.setToolTipText("Bearbeiten Sie die selektierten Daten");
+		ButtonUpdate.setToolTipText("Bearbeiten Sie die selektierte Zeile");
 		ButtonUpdate.setEnabled(false);		
 		ButtonUpdate.setBounds(330, 52, 145, 37);
 		MainPanel.add(ButtonUpdate);

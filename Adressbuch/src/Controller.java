@@ -41,6 +41,7 @@ public class Controller implements ActionListener,KeyListener
 		ViewMainFrame.ButtonExport.addActionListener(this::export);
 		ViewMainFrame.ButtonExport2.addActionListener(this::export2);
 		ViewMainFrame.ButtonImport.addActionListener(this::importdata);
+		ViewMainFrame.ButtonDeleteAll.addActionListener(this::deleteall);
 	
 		
 		insertcounter=0;
@@ -69,6 +70,23 @@ public class Controller implements ActionListener,KeyListener
 		catch (IOException e1) {e1.printStackTrace();}
 	}
 
+	public void deleteall(ActionEvent e) 
+	{
+		int result=JOptionPane.showConfirmDialog(null, "Wollen Sie die ganze Liste löschen ?",null, JOptionPane.YES_NO_OPTION);
+		if(result == JOptionPane.YES_OPTION) 
+		{
+			ModelDBQuery.deleteAll();
+			ViewMainFrame.defTableModel.setRowCount(0);
+			ViewMainFrame.ButtonDelete.setEnabled(false);
+			ViewMainFrame.ButtonUpdate.setEnabled(false);
+			ViewMainFrame.ButtonExport2.setEnabled(false);
+			ViewMainFrame.ButtonExport.setEnabled(false);
+			ViewMainFrame.printbutton.setEnabled(false);
+			ViewMainFrame.ButtonSearch.setEnabled(false);
+			ViewMainFrame.ButtonDeleteAll.setEnabled(false);
+
+		}
+	}
 	
 
 	public void export(ActionEvent e) 
@@ -688,6 +706,8 @@ public class Controller implements ActionListener,KeyListener
 				ViewMainFrame.ButtonExport.setEnabled(true);
 				ViewMainFrame.printbutton.setEnabled(true);
 				ViewMainFrame.ButtonSearch.setEnabled(true);
+				ViewMainFrame.ButtonDeleteAll.setEnabled(true);
+
 	        }
 	        else
 	        {
