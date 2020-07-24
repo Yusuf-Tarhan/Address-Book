@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.*;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 
@@ -524,7 +525,7 @@ public class Controller implements ActionListener,KeyListener
 	 *  Saves the list. If the parameter is null, the list is saved in a directory that has already been defined. 
 	 *  Otherwise, the list is saved in the location selected by the user.
 	 */
-	public void exportfile(String param) throws IOException, ClassNotFoundException, SQLException
+	public boolean exportfile(String param) throws IOException, ClassNotFoundException, SQLException
 
 	{
 		
@@ -533,7 +534,9 @@ public class Controller implements ActionListener,KeyListener
     		
     		if(param==null)
     		{
-    	    	File filesave=new File("C:\\Users\\yusuf\\eclipse-workspace\\AdressBuch.txt");
+    			
+    	    	File filesave=new File("C:\\temp\\AdressBuch.txt");
+    	    
     	    	filesave.createNewFile();
     			
 	    		FileWriter fw=new FileWriter(filesave.getAbsoluteFile());
@@ -561,6 +564,7 @@ public class Controller implements ActionListener,KeyListener
 	        	fw.close();
 	        	JOptionPane.showMessageDialog(null, "Die Daten sind erfolgreich in das Verzeichniss " + filesave.getAbsolutePath()+ " gespeichert.");
 
+	        	return true;
     		}
     		
     		else
@@ -570,7 +574,8 @@ public class Controller implements ActionListener,KeyListener
 	    	    	if(status==JFileChooser.APPROVE_OPTION)
 	    	    	{
 		    	    	File filesave=new File(chooser.getSelectedFile().getAbsolutePath());
-
+		    	    	String path=filesave.toString();
+		    	    	System.out.println(path);
 		    	    	String phadlänge=filesave.toString();
 		    	    	char [] phad=phadlänge.toCharArray();
 		    	    	char clonphad[]=new char[phad.length];
@@ -584,42 +589,53 @@ public class Controller implements ActionListener,KeyListener
 		    	    	System.out.println("con"+con);
 		    	    	if(controll.equals(con))
 		    	    	{
-		    	    		filesave.createNewFile();
-			    			
-		    	    		FileWriter fw=new FileWriter(filesave.getAbsoluteFile());
-		    	        	BufferedWriter bw=new BufferedWriter(fw);
-		
-		    	        	for(int i=0; i<ViewMainFrame.list.getRowCount(); i++)
-		    	        	{
-		    	        		for(int j=0; j<ViewMainFrame.list.getColumnCount(); j++)
-		    	        		{
-		    	        			if(j==ViewMainFrame.list.getColumnCount()-1)
-		    	        			{
-		    		        			bw.write(ViewMainFrame.list.getValueAt(i, j).toString());
-		    		    
-		    	        			}
-		    	        			else
-		    	        			{
-		    		        			bw.write(ViewMainFrame.list.getValueAt(i, j).toString()+",");
-		    	        				
-		    	        			}
-		    	        			
-		    	        		}
-		    	        		bw.write("\n");
-		    	        	}
-		    	        	bw.close();
-		    	        	fw.close();
-		    	        	JOptionPane.showMessageDialog(null, "Die Daten sind erfolgreich gespeichert.");	
+		    	    		
+		    	    		
+			    	    		filesave.createNewFile();
+				    			
+			    	    		FileWriter fw=new FileWriter(filesave.getAbsoluteFile());
+			    	        	BufferedWriter bw=new BufferedWriter(fw);
+			
+			    	        	for(int i=0; i<ViewMainFrame.list.getRowCount(); i++)
+			    	        	{
+			    	        		for(int j=0; j<ViewMainFrame.list.getColumnCount(); j++)
+			    	        		{
+			    	        			if(j==ViewMainFrame.list.getColumnCount()-1)
+			    	        			{
+			    		        			bw.write(ViewMainFrame.list.getValueAt(i, j).toString());
+			    		    
+			    	        			}
+			    	        			else
+			    	        			{
+			    		        			bw.write(ViewMainFrame.list.getValueAt(i, j).toString()+",");
+			    	        				
+			    	        			}
+			    	        			
+			    	        		}
+			    	        		bw.write("\n");
+			    	        	}
+			    	        	bw.close();
+			    	        	fw.close();
+			    	        	JOptionPane.showMessageDialog(null, "Die Daten sind erfolgreich gespeichert.");
+		    	    		
+		    	    		//catch{System.out.println("");}
 		    	    	}
 		    	    	if(!controll.equals(con))
 		        		{
 		        			JOptionPane.showMessageDialog(null,"Sie können die Daten nur als txt Format speichern","Titel", JOptionPane.CANCEL_OPTION);
+		        			exportfile("");
 		        		}
 	    	    	}
     		}
+    		return true;
 	    	    
     	}
-    	catch (Exception ex) {ex.printStackTrace();} 
+    	catch (Exception ex) 
+    	{	        	
+    		JOptionPane.showMessageDialog(null, "Versuchen Sie in ein anderes Verzeichnis zu speichern!","Titel",JOptionPane.CANCEL_OPTION);
+    		exportfile("");
+    		return true;
+    	}
     	
     }
 	
